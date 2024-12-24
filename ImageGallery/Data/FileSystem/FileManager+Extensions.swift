@@ -36,6 +36,23 @@ extension FileManager {
         return nil
     }
     
+    /// Removes an item with the specified file URL from the document directory, if present.
+    ///
+    ///  - parameter url: The file URL to be removed.
+    ///
+    func removeItemFromDocumentDirectory(url: URL) {
+        guard let documentDirectory = documentDirectory else { return }
+        let fileName = url.lastPathComponent
+        let fileUrl = documentDirectory.appendingPathComponent(fileName)
+        if self.fileExists(atPath: fileUrl.path) {
+            do {
+                try self.removeItem(at: url)
+            } catch let error {
+                print("Unable to remove file: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     /// Returns the contents of the specified directory as an array of URLs.
     func getContentsOfDirectory(_ url: URL) -> [URL] {
         var isDirectory: ObjCBool = false
