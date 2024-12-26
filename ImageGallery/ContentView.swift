@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var dataModel = DataModel()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            GridView()
         }
-        .padding()
+        .environmentObject(dataModel)
+        .navigationViewStyle(.stack)
     }
 }
 
